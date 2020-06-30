@@ -18,16 +18,19 @@ const list = new listTemplate(ul)
 form.addEventListener('submit', (e: Event) => {
     e.preventDefault()
 
+    // values is a tuple with predefined types
+    let values: [string, string, number]
+    values = [toFrom.value, details.value, amount.valueAsNumber]
+
     let doc: hasFormatter
     if(type.value === 'invoice'){
-        doc = new Invoice(toFrom.value, details.value, amount.valueAsNumber)
+        doc = new Invoice(...values)
     }
     else{
-        doc = new Payment(toFrom.value, details.value, amount.valueAsNumber)
+        doc = new Payment(...values)
     }
 
     list.render(doc, type.value, 'end')
     
-})
-
+}) 
 
